@@ -1,0 +1,106 @@
+version: "3.9"
+
+services:
+
+    pagina:
+        container_name: pagina_react
+        build: ./react
+        ports:
+          - "80:80"
+        networks: 
+          - network-pagina
+          - network-servers
+        
+    mongo:
+        container_name: mongo
+        image: mongo
+        ports: 
+          - "27018:27017"
+        networks: 
+          - network-db         
+        volumes:
+          - data:/data/db
+        logging:
+          driver: none  
+
+    server1:
+        container_name: server1
+        build: ./BD
+        ports:
+          - "5000"
+        depends_on:
+        - mongo
+        networks: 
+          - network-servers
+          - network-db
+    server2:
+        container_name: server2
+        build: ./Servidores/Server2
+        ports:
+          - "5000"
+        depends_on:
+        - mongo
+        networks: 
+          - network-servers
+          - network-db
+    server3:
+        container_name: server3
+        restart: always
+        build: ./Servidores/Server3
+        ports:
+          - "5000"
+        links:
+          - mongo
+        networks: 
+          - network-servers
+          - network-db
+    server4:
+        container_name: server4
+        restart: always
+        build: ./Servidores/Server4
+        ports:
+          - "5000"
+        links:
+          - mongo
+        networks: 
+          - network-servers
+          - network-db
+    nginx:
+      image: nginx:latest
+      volumes:
+        - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      depends_on:
+        - server1
+        - server2
+        - server3
+        - server4
+      ports:
+        - "4000:4000"
+      networks:
+        - network-servers
+
+networks:
+  network-db: 
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.10.18.0/24
+          gateway: 10.10.18.1
+  network-servers: 
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.35.78.0/24
+          gateway: 172.35.78.1
+  network-pagina: 
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.58.0/24
+          gateway: 192.168.58.1
+
+volumes:
+  data:

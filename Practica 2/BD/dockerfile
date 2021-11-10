@@ -1,0 +1,21 @@
+FROM node:14
+
+#Creo carpeta 
+RUN mkdir -p /usr/src/app
+
+#Nos movemos a la carpeta creada
+WORKDIR /usr/src/app
+
+#copiamos los archivos json
+COPY package*.json ./
+
+#instalamos los modulos en el contenedor
+RUN npm install 
+
+#copiamos todo menos lo del dockerignore
+COPY . .
+
+#especificar el puerto 
+EXPOSE 3000
+
+CMD ["npm", "start"]

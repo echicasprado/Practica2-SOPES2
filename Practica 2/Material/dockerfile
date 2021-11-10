@@ -1,0 +1,20 @@
+FROM node:12-alpine3.14 AS build
+
+WORKDIR /app
+
+COPY package.json ./
+COPY package-lock.json ./
+
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+FROM nginx:1.19.0-alpine AS prod-stage
+#COPY ./build /var/www /usr/share/nginx/html
+
+COPY --from=build /app/build /var/www
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+CMD ["nginx","-g","daemon off;"]
