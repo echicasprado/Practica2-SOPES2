@@ -12,7 +12,7 @@ var divStyle = {
 
 
   var button = {
-    background: 'linear-gradient(45deg, #6bb9fe 30%, #926bfe 90%)',
+    background: '#008b8b',
     border: 0,
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
@@ -39,7 +39,7 @@ class Principal extends Component{
                   <div className="mb-2">
                   <br/>
                   <br/>
-                      <button style={button} >GRUPO    #8</button>
+                      <button style={button} >GRUPO    #21</button>
                   </div>
               </div>
             </div>

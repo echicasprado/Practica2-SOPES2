@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
         justifyContent: 'flex-end'
     },
     link: {
-        textDecoration: 'none'
+        textDecoration: 'none',
     }
 }));
 
@@ -45,12 +45,12 @@ const NavBar = () =>{
     return(
         <div>
             <AppBar position='static'>
-                <Toolbar variant='dense'>
+                <Toolbar variant='dense' style={{ backgroundColor: '#008b8b', flex: 0.3 }}>
                     <IconButton onClick={drawerOpen} edge='start'>
                         <MenuIcon></MenuIcon>
                     </IconButton>
                     <Typography variant='h6'>
-                        Grupo 8_Practica 2
+                        Grupo 21_Practica 2
                     </Typography>
                 </Toolbar>
             </AppBar>

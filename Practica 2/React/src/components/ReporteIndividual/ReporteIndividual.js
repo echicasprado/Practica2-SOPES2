@@ -16,7 +16,7 @@ import Timeline from '@material-ui/lab/Timeline';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-      backgroundColor: theme.palette.info.light,
+      backgroundColor: '#008b8b',
       color: theme.palette.common.white,
     },
     body: {
@@ -54,7 +54,7 @@ const text1 = {
   };
 
   var button = {
-    background: 'linear-gradient(45deg, #6bb9fe 30%, #926bfe 90%)',
+    background: 'linear-gradient(45deg, #008b8b 30%, #926bfe 90%)',
     border: 0,
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
